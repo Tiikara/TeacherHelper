@@ -1,0 +1,13 @@
+AddDefaultCharset UTF-8
+
+AddType application/x-httpd-php .php .htm .html
+
+DirectoryIndex index.php
+
+<Files *.php>
+   deny from all
+</Files>
+
+<Files index.php>
+   allow from all
+</Files>

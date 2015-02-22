@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Авторизация</title>
+</head>
+<body>
+
+<form method="post" action="" class="login">
+    <div class="loginform">
+        <p>
+            <label for="login">Логин:</label>
+            <input type="text" name="name" id="login">
+        </p>
+
+        <p>
+            <label for="password">Пароль:</label>
+            <input type="password" name="password" id="password">
+        </p>
+
+        <p class="login-submit">
+            <button type="submit" class="login-button">Войти</button>
+        </p>
+    </div>
+    <div class="captcha">
+        <?=$captcha?>
+    </div>
+</form>
+
+</body>
+</html>
