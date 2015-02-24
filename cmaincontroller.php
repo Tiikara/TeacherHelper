@@ -2,6 +2,7 @@
 
 include_once("cdatabase.php");
 include_once("cmoduleauth.php");
+include_once("ctemplatecontroller.php");
 
 
 class CMainController {
@@ -15,5 +16,6 @@ class CMainController {
         $moduleAuth->checkAuth();
 
         // TODO: Обработка модулей
+        CTemplateController::drawJournal();
     }
 }

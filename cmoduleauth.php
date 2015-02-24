@@ -1,6 +1,7 @@
 <?php
 
 include_once("clogin.php");
+include_once("cregister.php");
 
 
 class CModuleAuth {
@@ -9,7 +10,8 @@ class CModuleAuth {
     {
         if($_GET['module'] == "register")
         {
-            // TODO: Модуль регистрации
+            $register = new CRegister();
+            $register->content();
         }
 
         $login  = new CLogin();

@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Авторизация</title>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
 </head>
 <body>
-
 <form method="post" action="" class="login">
     <div class="loginform">
         <p>
@@ -23,15 +22,14 @@
         </div>
 
         <p class="login-submit">
-            <button type="submit" class="login-button">Войти</button>
-            <a href="index.php?module=register">Регистрация</a>
+            <button type="submit" formaction="index.php?module=register">Регистрация</button>
+            <a href="index.php">Назад</a>
         </p>
-
-        <? if($message): ?>
-            <?=$message?>
-        <? endif; ?>
     </div>
 
+    <? if($message): ?>
+        <?=$message?>
+    <? endif; ?>
 </form>
 
 </body>

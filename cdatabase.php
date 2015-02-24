@@ -32,24 +32,36 @@ class CDatabase {
     }
 
     /**
-     * Возвращает id пользователя. Если таковой не найден, то -1.
+     * Возвращает id пользователя. Если таковой не найден, то CDatabase::undefined_result.
      *
      * @param string $name
      * @param string $md5hash
      *
      * @return int
      */
-    public function tryLogin($name, $md5hash)
+    public function getIdUser($name, $md5hash)
     {
-        $sql_res = $this->sqldatabase->executeQuery("SELECT id FROM Teachers WHERE Teachers.name=$name AND Teachers.md5hash=$md5hash");
+        $sql_res = $this->sqldatabase->executeQuery("SELECT id FROM teachers WHERE login='$name' AND md5hash='$md5hash'");
+
+        if($sql_res == CSqlDatabase::sqlerror || $sql_res->getCountRows() == 0)
+            return CDatabase::undefined_result;
 
         $res_array = $sql_res->getArrayRows();
 
-        if($sql_res->getCountRows() == 0)
-            return -1;
-
         return $res_array['id'];
     }
+
+    public function registerUser($name, $md5hash)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("INSERT INTO teachers (login, md5hash) VALUES ('$name','$md5hash')");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
+    const undefined_result = -1;
 
     static protected $instance;
 

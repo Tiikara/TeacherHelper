@@ -62,7 +62,9 @@ class CSqlDatabase
     }
 
     /**
+     *
      * Возвращает CSqlResult, если запрос SELECT, иначе null.
+     * Возвращает CSqlDatabase::sqlerror, если запрос завершился с ошибкой.
      *
      * @param string
      * @return CSqlResult
@@ -70,11 +72,17 @@ class CSqlDatabase
     public function executeQuery($query)
     {
         $result = mysqli_query($this->mysqli ,$query);
+
+        if($result == null)
+            return self::sqlerror;
+
         if(is_bool($result))
             return null;
         else
             return new CSqlResult($result);
     }
+
+    const sqlerror = -1;
 
     private $mysqli;
 
@@ -82,5 +90,5 @@ class CSqlDatabase
     private $username = 'root';
     private $password = '';
 
-    private $dbName = 'yar103_eventsdb';
+    private $dbName = 'teacher';
 }
