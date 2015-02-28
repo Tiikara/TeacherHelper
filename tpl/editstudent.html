@@ -1,0 +1,12 @@
+<form method="post" action="" class="login">
+    <div>
+        <p>
+            <label for="name">Имя студента:</label>
+            <input type="text" name="name" id="name" value="<?=$student['name']?>">
+        </p>
+
+        <p class="login-submit">
+            <button type="submit" formaction="index.php?module=groups&edit=<?=$group['id']?>&studentedit=<?=$student['id']?>">Применить</button>
+        </p>
+    </div>
+</form>

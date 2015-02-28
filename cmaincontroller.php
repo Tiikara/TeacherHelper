@@ -2,7 +2,10 @@
 
 include_once("cdatabase.php");
 include_once("cmoduleauth.php");
+include_once("cmoduleacademicyear.php");
 include_once("ctemplatecontroller.php");
+
+include_once("cmodulegroups.php");
 
 
 class CMainController {
@@ -15,7 +18,20 @@ class CMainController {
         $moduleAuth = new CModuleAuth();
         $moduleAuth->checkAuth();
 
+        $moduleAcademicYear = new CModuleAcademicYear();
+        $moduleAcademicYear->init();
+
         // TODO: Обработка модулей
-        CTemplateController::drawJournal();
+
+        switch($_GET['module'])
+        {
+            case 'groups':
+                $module = new CModuleGroups();
+                break;
+            default:
+                $module = new CModuleGroups();
+        }
+
+        $module->content();
     }
 }

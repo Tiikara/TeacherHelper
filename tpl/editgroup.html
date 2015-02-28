@@ -1,0 +1,19 @@
+<p><b><?=$group['name']?></b></p>
+<tr>
+
+<? foreach ($students as $student): ?>
+    <p><?=$student['name']?> <a href="index.php?module=groups&edit=<?=$group['id']?>&studentedit=<?=$student['id']?>">Редактировать</a> <a href="index.php?module=groups&edit=<?=$group['id']?>&studentdelete=<?=$student['id']?>">Удалить</a> </p>
+<? endforeach; ?>
+<hr>
+<form method="post" action="" class="login">
+    <div>
+        <p>
+            <label for="name">Имя студента:</label>
+            <input type="text" name="name" id="name">
+        </p>
+
+        <p class="login-submit">
+            <button type="submit" formaction="index.php?module=groups&edit=<?=$group['id']?>&action=add">Добавить</button>
+        </p>
+    </div>
+</form>

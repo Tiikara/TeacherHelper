@@ -6,6 +6,11 @@ include_once("cdatabase.php");
 
 class CLogin {
 
+    static public function getIdTeacher()
+    {
+        return self::$idTeacher;
+    }
+
     public function tryLogin()
     {
         //ini_set('session.save_path', $_SERVER['DOCUMENT_ROOT'] .'/admin/sessions');
@@ -40,6 +45,8 @@ class CLogin {
             $_SESSION['is_login'] = true;
             $_SESSION['id_user'] = $idUser;
         }
+
+        self::$idTeacher = $_SESSION['id_user'];
     }
 
     /**
@@ -62,5 +69,5 @@ class CLogin {
         return $database->getIdUser($_POST['name'], $md5hash);
     }
 
-
+    static private $idTeacher;
 }

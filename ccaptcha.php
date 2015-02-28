@@ -4,12 +4,17 @@ include_once('libs/recaptchalib.php');
 
 class CCaptcha {
 
-
+    /**
+     * @return string
+     */
     static public function getHtml()
     {
         return recaptcha_get_html(self::$publickey, null);
     }
 
+    /**
+     * @return boolean
+     */
     static public function isValid()
     {
         if(isset($_POST['recaptcha_response_field']))
