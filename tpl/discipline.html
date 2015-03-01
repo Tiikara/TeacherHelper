@@ -1,0 +1,16 @@
+<? foreach ($disciplines as $discipline): ?>
+    <p><?=$discipline['name']?> <a href="index.php?module=discipline&edit=<?=$discipline['id']?>">Редактировать</a> <a href="index.php?module=discipline&delete=<?=$discipline['id']?>">Удалить</a></p>
+<? endforeach; ?>
+<hr>
+<form method="post" action="" class="login">
+    <div>
+        <p>
+            <label for="name">Название дисциплины:</label>
+            <input type="text" name="name" id="name">
+        </p>
+
+        <p class="submit">
+            <button type="submit" formaction="index.php?module=discipline&action=add">Добавить</button>
+        </p>
+    </div>
+</form>

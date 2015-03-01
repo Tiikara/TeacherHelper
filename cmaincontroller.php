@@ -6,6 +6,7 @@ include_once("cmoduleacademicyear.php");
 include_once("ctemplatecontroller.php");
 
 include_once("cmodulegroups.php");
+include_once("cmodulediscipline.php");
 
 
 class CMainController {
@@ -27,6 +28,9 @@ class CMainController {
         {
             case 'groups':
                 $module = new CModuleGroups();
+                break;
+            case 'discipline':
+                $module = new CModuleDiscipline();
                 break;
             default:
                 $module = new CModuleGroups();

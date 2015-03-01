@@ -1,0 +1,71 @@
+<?php
+
+include_once("cdatabase.php");
+include_once("cmoduleacademicyear.php");
+include_once("ctemplatecontroller.php");
+
+class CModuleDiscipline {
+
+
+    public function content()
+    {
+        $database = CDatabase::getInstance();
+
+        if(isset($_GET['edit']))
+        {
+           $this->editDisciplineContent($_GET['edit']);
+        }
+
+        if(isset($_GET['delete']))
+        {
+            $database->deleteDiscipline($_GET['delete']);
+        }
+
+        if($_GET['action'] == 'add')
+        {
+            $database->addDiscipline($_POST['name'], CModuleAcademicYear::getId());
+        }
+
+        $disciplines = $database->getDisciplines(CModuleAcademicYear::getId());
+        CTemplateController::drawDiscipline($disciplines);
+    }
+
+    private function editDisciplineContent($idDiscipline)
+    {
+        $database = CDatabase::getInstance();
+
+        if(isset($_GET['connect']))
+        {
+            $database->connectDisciplineToGroup($idDiscipline, $_GET['connect']);
+        }
+
+        if(isset($_GET['disconnect']))
+        {
+            $database->disconnectDisciplineFromGroup($idDiscipline, $_GET['disconnect']);
+        }
+
+        $groupsRelated = $database->getGroupsRelatedDiscipline($idDiscipline);
+        $groupsTemp = $database->getGroups(CModuleAcademicYear::getId());
+        $discipline = $database->getDiscipline($idDiscipline);
+
+
+        $groups = array();
+        foreach($groupsTemp as $group)
+        {
+            $isFounded = false;
+            foreach($groupsRelated as $groupRelated)
+            {
+                if($groupRelated['id'] == $group['id'])
+                {
+                    $isFounded = true;
+                    break;
+                }
+            }
+
+            $group['isRelated'] = $isFounded;
+            $groups[] = $group;
+        }
+
+        CTemplateController::drawEditDiscipline($discipline, $groups);
+    }
+}

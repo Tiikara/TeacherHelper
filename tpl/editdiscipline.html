@@ -1,0 +1,12 @@
+<p><b><?=$discipline['name']?></b></p>
+<tr>
+
+<? foreach ($groups as $group): ?>
+    <p><?=$group['name']?>
+        <? if($group['isRelated']): ?>
+            <a href="index.php?module=discipline&edit=<?=$discipline['id']?>&disconnect=<?=$group['id']?>">Отсоединить</a>
+        <? else: ?>
+            <a href="index.php?module=discipline&edit=<?=$discipline['id']?>&connect=<?=$group['id']?>">Соединить</a>
+        <? endif; ?>
+    </p>
+<? endforeach; ?>

@@ -156,6 +156,65 @@ class CDatabase {
         $this->sqldatabase->executeQuery("DELETE FROM students WHERE id=$idStudent");
     }
 
+    public function addDiscipline($name, $idAcademicYear)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("INSERT INTO discipline (name, id_academicyear) VALUES ('$name', $idAcademicYear)");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
+    public function getDisciplines($idAcademicYear)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT id, name FROM discipline WHERE id_academicyear=$idAcademicYear");
+
+        return $sql_res->getArrayRows();
+    }
+
+    public function getDiscipline($idDiscipline)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT id, name FROM discipline WHERE id=$idDiscipline");
+
+        return $sql_res->getRow();
+    }
+
+    public function deleteDiscipline($idDiscipline)
+    {
+        $this->sqldatabase->executeQuery("DELETE FROM discipline WHERE id=$idDiscipline");
+    }
+
+    public function getGroupsRelatedDiscipline($idDiscipline)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT groups.id AS id, groups.name AS name
+                                                      FROM groups, discipline_groups
+                                                      WHERE discipline_groups.id_discipline=$idDiscipline
+                                                            AND groups.id=discipline_groups.id_group");
+
+        return $sql_res->getArrayRows();
+    }
+
+    public function connectDisciplineToGroup($idDiscipline, $idGroup)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("INSERT INTO discipline_groups (id_discipline, id_group) VALUES ($idDiscipline, $idGroup)");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
+    public function disconnectDisciplineFromGroup($idDiscipline, $idGroup)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("DELETE FROM discipline_groups WHERE id_discipline=$idDiscipline AND id_group=$idGroup");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
     const undefined_result = -1;
 
     static protected $instance;

@@ -45,6 +45,20 @@ class CTemplateController {
         exit;
     }
 
+    static function drawDiscipline($disciplines)
+    {
+        $bodyName = "tpl/discipline.html";
+        include "tpl/main.html";
+        exit;
+    }
+
+    static function drawEditDiscipline($discipline, $groups)
+    {
+        $bodyName = "tpl/editdiscipline.html";
+        include "tpl/main.html";
+        exit;
+    }
+
     static function drawJournal()
     {
         $bodyName = "tpl/journal.html";
