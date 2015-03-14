@@ -79,4 +79,18 @@ class CTemplateController {
         include "tpl/main.html";
         exit;
     }
+
+    static function drawTasksSelect($disciplines)
+    {
+        $bodyName = "tpl/tasksselect.html";
+        include "tpl/main.html";
+        exit;
+    }
+
+    static function drawTasksEdit($idDiscipline, $tasks)
+    {
+        $bodyName = "tpl/tasks.html";
+        include "tpl/main.html";
+        exit;
+    }
 }

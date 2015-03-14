@@ -271,6 +271,38 @@ class CDatabase {
         return true;
     }
 
+    public function getTasks($idDiscipline)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT tasks.id AS id, tasks.description AS description, tasks.date_to AS date_to,
+                                                      tasks.difficulty AS difficulty
+                                                     FROM tasks
+                                                     WHERE tasks.id_discipline=$idDiscipline");
+
+
+        return $sql_res->getArrayRows();
+    }
+
+    public function addTask($idDiscipline, $description, $date_to, $difficulty)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("INSERT INTO tasks (id_discipline, description, date_to, difficulty)
+                                                    VALUES ($idDiscipline, '$description', '$date_to', $difficulty)");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
+    public function deleteTask($idTask)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("DELETE FROM tasks WHERE tasks.id=$idTask");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
     const undefined_result = -1;
 
     static protected $instance;
