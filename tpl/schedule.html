@@ -1,0 +1,28 @@
+<? for($i=0;$i<7;$i++): ?>
+
+<b><?=$schedule[$i]['name_day']?></b><br><br>
+
+    <table>
+        <? foreach ($schedule[$i]['day_week'] as $subject): ?>
+        <tr>
+            <td><?=$subject['num_lecture']?> пара</td>
+            <td>
+                <? if($subject['type_alternation'] == 1): ?>
+                    Ч
+                <? elseif($subject['type_alternation'] == 2): ?>
+                    З
+                <? else: ?>
+                    -
+                <? endif; ?>
+            </td>
+            <td><?=$subject['name_type_lecture']?></td>
+            <td><?=$subject['name_discipline']?></td>
+            <td><?=$subject['name_group']?></td>
+            <td><a href="index.php?module=schedule&delete=<?=$subject['id']?>">Удалить</a></td>
+        </tr>
+        <? endforeach; ?>
+    </table>
+
+<a href="index.php?module=schedule&add=<?=$i?>">Добавить</a><br><br>
+
+<? endfor; ?>

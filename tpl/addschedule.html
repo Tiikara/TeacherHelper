@@ -1,0 +1,33 @@
+<form enctype="multipart/form-data" action="index.php?module=schedule&add=<?=$dayOfWeek?>" method="post">
+
+    Номер лекции
+    <select name="num_lecture">
+        <? for($i=1;$i<7;$i++): ?>
+            <option value="<?=$i?>"><?=$i?> пара</option>
+        <? endfor; ?>
+    </select>
+
+
+    <select name="type_alternation">
+        <option value="0">Всегда</option>
+        <option value="1">Числитель</option>
+        <option value="2">Знаменатель</option>
+    </select>
+
+    <select name="type_lecture">
+        <? foreach ($type_lectures as $type_lecture): ?>
+            <option value="<?=$type_lecture['id']?>"><?=$type_lecture['name']?></option>
+        <? endforeach; ?>
+    </select>
+
+    <select name="disc_group">
+        <? foreach ($disc_groups as $disc_group): ?>
+            <option value="<?=$disc_group['id']?>"><?=$disc_group['name_discipline']?> (<?=$disc_group['name_group']?>)</option>
+        <? endforeach; ?>
+    </select>
+
+    <br>
+
+    <input type="submit" value="Добавить">
+
+</form>

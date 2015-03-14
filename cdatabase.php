@@ -215,6 +215,62 @@ class CDatabase {
         return true;
     }
 
+    public function getScheduleOfDay($idAcademicYear, $dayOfWeek)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT schedule.id AS id, schedule.num_lecture AS num_lecture,
+                                                      schedule.type_alternation AS type_alternation,
+                                                      discipline.name AS name_discipline, groups.name AS name_group,
+                                                      type_lecture.name as name_type_lecture
+                                                      FROM groups, discipline, discipline_groups, schedule, type_lecture, academicyear
+                                                      WHERE academicyear.id=$idAcademicYear AND schedule.day_week=$dayOfWeek AND
+                                                            discipline_groups.id=schedule.id_disc_group AND
+                                                            discipline_groups.id_group=groups.id AND discipline_groups.id_discipline=discipline.id AND
+                                                            type_lecture.id=schedule.id_type_lecture
+                                                            ORDER BY schedule.num_lecture ASC");
+
+        return $sql_res->getArrayRows();
+    }
+
+    public function getDisciplineGroups($idAcademicYear)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT discipline_groups.id AS id, discipline.name AS name_discipline,
+                                                     groups.name AS name_group
+                                                     FROM academicyear, discipline_groups, discipline, groups
+                                                     WHERE academicyear.id=$idAcademicYear AND
+                                                     academicyear.id=discipline.id_academicyear AND academicyear.id=groups.id_academicyear AND
+                                                     discipline.id=discipline_groups.id_discipline AND groups.id=discipline_groups.id_group");
+
+        return $sql_res->getArrayRows();
+    }
+
+    public function getTypeLectures()
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT type_lecture.id AS id, type_lecture.name AS name FROM type_lecture");
+
+        return $sql_res->getArrayRows();
+    }
+
+    public function addSchedule($idAcademicYear, $dayOfWeek, $numLecture, $typeAlternation, $idDiscGroup, $idTypeLecture)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("INSERT INTO schedule (id_academicyear, day_week, num_lecture, type_alternation, id_disc_group, id_type_lecture)
+                                                    VALUES ($idAcademicYear, $dayOfWeek, $numLecture, $typeAlternation, $idDiscGroup, $idTypeLecture)");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
+    public function deleteSchedule($idSchedule)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("DELETE FROM schedule WHERE schedule.id=$idSchedule");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
     const undefined_result = -1;
 
     static protected $instance;

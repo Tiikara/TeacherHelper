@@ -7,6 +7,7 @@ include_once("ctemplatecontroller.php");
 
 include_once("cmodulegroups.php");
 include_once("cmodulediscipline.php");
+include_once("cmoduleschedule.php");
 
 
 class CMainController {
@@ -31,6 +32,9 @@ class CMainController {
                 break;
             case 'discipline':
                 $module = new CModuleDiscipline();
+                break;
+            case 'schedule':
+                $module = new CModuleSchedule();
                 break;
             default:
                 $module = new CModuleGroups();

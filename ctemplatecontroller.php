@@ -65,4 +65,18 @@ class CTemplateController {
         include "tpl/main.html";
         exit;
     }
+
+    static function drawSchedule($schedule)
+    {
+        $bodyName = "tpl/schedule.html";
+        include "tpl/main.html";
+        exit;
+    }
+
+    static function drawAddSchedule($dayOfWeek, $type_lectures, $disc_groups)
+    {
+        $bodyName = "tpl/addschedule.html";
+        include "tpl/main.html";
+        exit;
+    }
 }
