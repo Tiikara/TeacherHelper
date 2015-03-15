@@ -1,0 +1,13 @@
+<table>
+    <tr>
+        <td>Студент</td>
+        <td>Оценка</td>
+    </tr>
+
+    <? foreach ($students as $student): ?>
+        <tr>
+            <td><?=$student['name']?></td>
+            <td><?=$student['rating']?></td>
+        </tr>
+    <? endforeach; ?>
+</table>

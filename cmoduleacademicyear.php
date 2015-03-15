@@ -12,18 +12,23 @@ class CModuleAcademicYear {
         return self::$id;
     }
 
+    static public function getAcademDate()
+    {
+        return self::$academ_date;
+    }
+
     public function init()
     {
-        $academ_date = $this->calcAcademicDate();
+        self::$academ_date = $this->calcAcademicDate();
 
         $database = CDatabase::getInstance();
 
         if($_GET['action'] == 'createacademicyear')
         {
-            $database->addAcademicYear($academ_date['year'], $academ_date['semester'], CLogin::getIdTeacher());
+            $database->addAcademicYear(self::$academ_date['year'], self::$academ_date['semester'], CLogin::getIdTeacher());
         }
 
-        $idAcademicYear = $database->getIdAcademicYear($academ_date['year'], $academ_date['semester'], CLogin::getIdTeacher());
+        $idAcademicYear = $database->getIdAcademicYear(self::$academ_date['year'], self::$academ_date['semester'], CLogin::getIdTeacher());
 
         if($idAcademicYear == CDatabase::undefined_result)
         {
@@ -56,4 +61,5 @@ class CModuleAcademicYear {
 
 
     static private $id;
+    static private $academ_date;
 }

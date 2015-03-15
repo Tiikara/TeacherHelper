@@ -114,4 +114,18 @@ class CTemplateController {
         include "tpl/main.html";
         exit;
     }
+
+    static function drawPhasedControlSelect($disciplineGroups)
+    {
+        $bodyName = "tpl/phasedcontrolselect.html";
+        include "tpl/main.html";
+        exit;
+    }
+
+    static function drawPhasedControlReport($students)
+    {
+        $bodyName = "tpl/phasedcontrolreport.html";
+        include "tpl/main.html";
+        exit;
+    }
 }

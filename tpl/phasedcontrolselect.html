@@ -1,0 +1,23 @@
+<form enctype="multipart/form-data" action="index.php?module=phasedcontrol&make=1" method="post">
+
+    <label for="subjects">Предметы:</label>
+    <select name="discipline_group" id="subjects">
+        <? foreach ($disciplineGroups as $disciplineGroup): ?>
+            <option value="<?=$disciplineGroup['id']?>"><?=$disciplineGroup['name_discipline']?> (<?=$disciplineGroup['name_group']?>)</option>
+        <? endforeach; ?>
+    </select>
+
+    <br>
+
+    <label for="date-from">От:</label>
+    <input type="text" name="date-from" id="date-from" value="">
+
+    <br>
+
+    <label for="date-to">До:</label>
+    <input type="text" name="date-from" id="date-to" value="">
+
+    <br>
+    <input type="submit" value="Сформировать">
+
+</form>

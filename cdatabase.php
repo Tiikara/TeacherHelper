@@ -124,6 +124,17 @@ class CDatabase {
         return $sql_res->getArrayRows();
     }
 
+    public function getStudentsFromDisciplineGroup($idDisciplineGroup)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT students.id AS id,
+                                                            students.name AS name
+                                                            FROM students, discipline_groups
+                                                            WHERE discipline_groups.id=$idDisciplineGroup
+                                                            AND discipline_groups.id_group=students.id_group");
+
+        return $sql_res->getArrayRows();
+    }
+
     public function addStudent($name, $idGroup)
     {
         $sql_res = $this->sqldatabase->executeQuery("INSERT INTO students (name, id_group) VALUES ('$name', $idGroup)");
@@ -251,7 +262,7 @@ class CDatabase {
         $sql_res = $this->sqldatabase->executeQuery("SELECT discipline.id AS id,
                                                             discipline.name AS name FROM discipline, discipline_groups
                                                             WHERE discipline_groups.id=$idDisciplineGroup
-                                                            AND discipline.id=discipline_groups.id");
+                                                            AND discipline.id=discipline_groups.id_discipline");
 
         return $sql_res->getRow();
     }
@@ -291,6 +302,16 @@ class CDatabase {
                                                      FROM tasks
                                                      WHERE tasks.id_discipline=$idDiscipline");
 
+        return $sql_res->getArrayRows();
+    }
+
+    public function getTasksMaxDate($idDiscipline, $maxDate)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT tasks.id AS id, tasks.name AS name, tasks.date_to AS date_to,
+                                                      tasks.difficulty AS difficulty
+                                                     FROM tasks, day_events
+                                                     WHERE tasks.id_discipline=$idDiscipline
+                                                     AND tasks.date_to < $maxDate");
 
         return $sql_res->getArrayRows();
     }
@@ -303,6 +324,21 @@ class CDatabase {
                                                      WHERE tasks.id=$idTask");
 
         return $sql_res->getRow();
+    }
+
+    public function getDoneTasks($idDiscipline, $idStudent, $dateTo)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT tasks.id AS id, tasks.name AS name, tasks.date_to AS date_to,
+                                                      tasks.difficulty AS difficulty
+                                                     FROM tasks, students, day_events
+                                                     WHERE tasks.id_discipline=$idDiscipline
+                                                     AND students.id=$idStudent
+                                                     AND day_events.id_student=students.id
+                                                     AND day_events.id_tasks IS NOT NULL
+                                                     AND tasks.id=day_events.id_tasks
+                                                     AND tasks.date_to < $dateTo");
+
+        return $sql_res->getArrayRows();
     }
 
     public function addTask($idDiscipline, $name, $date_to, $difficulty)

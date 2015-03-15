@@ -10,6 +10,7 @@ include_once("cmodulediscipline.php");
 include_once("cmoduleschedule.php");
 include_once("cmoduletasks.php");
 include_once("cmodulejournal.php");
+include_once("cmodulephasedcontrol.php");
 
 
 class CMainController {
@@ -43,6 +44,9 @@ class CMainController {
                 break;
             case 'journal':
                 $module = new CModuleJournal();
+                break;
+            case 'phasedcontrol':
+                $module = new CModulePhasedControl();
                 break;
             default:
                 $module = new CModuleGroups();
