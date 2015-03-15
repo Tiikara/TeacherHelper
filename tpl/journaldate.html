@@ -1,0 +1,32 @@
+<? foreach ($schedule as $subject): ?>
+
+    <?=$subject['num_lecture']?> пара | <?=$subject['name_discipline']?> | <?=$subject['name_group']?><br><br>
+
+    <table>
+        <? foreach ($subject['students'] as $student): ?>
+        <tr>
+            <td><?=$student['name']?> > </td>
+            <td>
+                <? if($student['event'] != null): ?>
+                    <? if($student['event']['task'] == null): ?>
+                        <? if($student['event']['rating'] == 0): ?>
+                            Пропустил
+                        <? else: ?>
+                            Оценка: <?=$student['event']['rating']?>
+                        <? endif; ?>
+                    <? else: ?>
+                        Выполнено: <?=$student['event']['task']['name']?> | Оценка: <?=$student['event']['rating']?>
+                    <? endif; ?>
+                    | <a href="index.php?module=journal&date=<?=$date?>&delete=<?=$student['event']['id']?>">Удалить</a>
+                <? else: ?>
+                    <a href="index.php?module=journal&date=<?=$date?>&add=<?=$student['id']?>&discipline_group=<?=$subject['id_discipline_group']?>">Добавить</a> | <a href="index.php?module=journal&date=<?=$date?>&discipline_group=<?=$subject['id_discipline_group']?>&skip=<?=$student['id']?>">Пропуск</a>
+                <? endif; ?>
+            </td>
+        </tr>
+        <? endforeach; ?>
+    </table>
+
+    <hr>
+
+
+<? endforeach; ?>

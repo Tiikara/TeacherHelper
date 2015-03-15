@@ -9,6 +9,7 @@ include_once("cmodulegroups.php");
 include_once("cmodulediscipline.php");
 include_once("cmoduleschedule.php");
 include_once("cmoduletasks.php");
+include_once("cmodulejournal.php");
 
 
 class CMainController {
@@ -39,6 +40,9 @@ class CMainController {
                 break;
             case 'tasks':
                 $module = new CModuleTasks();
+                break;
+            case 'journal':
+                $module = new CModuleJournal();
                 break;
             default:
                 $module = new CModuleGroups();

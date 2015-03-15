@@ -219,7 +219,9 @@ class CDatabase {
     {
         $sql_res = $this->sqldatabase->executeQuery("SELECT schedule.id AS id, schedule.num_lecture AS num_lecture,
                                                       schedule.type_alternation AS type_alternation,
-                                                      discipline.name AS name_discipline, groups.name AS name_group,
+                                                      discipline_groups.id AS id_discipline_group,
+                                                      discipline.id AS id_discipline, discipline.name AS name_discipline,
+                                                      groups.id AS id_group, groups.name AS name_group,
                                                       type_lecture.name as name_type_lecture
                                                       FROM groups, discipline, discipline_groups, schedule, type_lecture, academicyear
                                                       WHERE academicyear.id=$idAcademicYear AND schedule.day_week=$dayOfWeek AND
@@ -227,6 +229,7 @@ class CDatabase {
                                                             discipline_groups.id_group=groups.id AND discipline_groups.id_discipline=discipline.id AND
                                                             type_lecture.id=schedule.id_type_lecture
                                                             ORDER BY schedule.num_lecture ASC");
+
 
         return $sql_res->getArrayRows();
     }
@@ -241,6 +244,16 @@ class CDatabase {
                                                      discipline.id=discipline_groups.id_discipline AND groups.id=discipline_groups.id_group");
 
         return $sql_res->getArrayRows();
+    }
+
+    public function getDisciplineFromIdDisciplineGroup($idDisciplineGroup)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT discipline.id AS id,
+                                                            discipline.name AS name FROM discipline, discipline_groups
+                                                            WHERE discipline_groups.id=$idDisciplineGroup
+                                                            AND discipline.id=discipline_groups.id");
+
+        return $sql_res->getRow();
     }
 
     public function getTypeLectures()
@@ -273,7 +286,7 @@ class CDatabase {
 
     public function getTasks($idDiscipline)
     {
-        $sql_res = $this->sqldatabase->executeQuery("SELECT tasks.id AS id, tasks.description AS description, tasks.date_to AS date_to,
+        $sql_res = $this->sqldatabase->executeQuery("SELECT tasks.id AS id, tasks.name AS name, tasks.date_to AS date_to,
                                                       tasks.difficulty AS difficulty
                                                      FROM tasks
                                                      WHERE tasks.id_discipline=$idDiscipline");
@@ -282,10 +295,20 @@ class CDatabase {
         return $sql_res->getArrayRows();
     }
 
-    public function addTask($idDiscipline, $description, $date_to, $difficulty)
+    public function getTaskFromId($idTask)
     {
-        $sql_res = $this->sqldatabase->executeQuery("INSERT INTO tasks (id_discipline, description, date_to, difficulty)
-                                                    VALUES ($idDiscipline, '$description', '$date_to', $difficulty)");
+        $sql_res = $this->sqldatabase->executeQuery("SELECT tasks.id AS id, tasks.name AS name, tasks.date_to AS date_to,
+                                                      tasks.difficulty AS difficulty
+                                                     FROM tasks
+                                                     WHERE tasks.id=$idTask");
+
+        return $sql_res->getRow();
+    }
+
+    public function addTask($idDiscipline, $name, $date_to, $difficulty)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("INSERT INTO tasks (id_discipline, name, date_to, difficulty)
+                                                    VALUES ($idDiscipline, '$name', '$date_to', $difficulty)");
 
         if($sql_res == CSqlDatabase::sqlerror)
             return false;
@@ -301,6 +324,96 @@ class CDatabase {
             return false;
 
         return true;
+    }
+
+    public function getDateEvents($idAcademicYear, $date)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT day_events.id AS id, day_events.id_student AS id_student, discipline.id AS id_discipline,
+                                                      discipline_groups.id AS id_discipline_group,
+                                                     day_events.id_tasks AS id_tasks, day_events.rating AS rating
+                                                     FROM day_events, days, discipline_groups, discipline, academicyear
+                                                     WHERE days.date='$date' AND day_events.id_day=days.id
+                                                     AND discipline_groups.id=days.id_disc_groups
+                                                     AND discipline.id=discipline_groups.id_discipline
+                                                     AND discipline.id_academicyear=academicyear.id
+                                                     AND academicyear.id=$idAcademicYear");
+
+        return $sql_res->getArrayRows();
+    }
+
+    public function deleteEvent($idEvent)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("DELETE FROM day_events WHERE day_events.id=$idEvent");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
+    public function addEvent($idDisciplineGroup, $date, $idStudent, $rating, $idTask)
+    {
+        if($idTask == '')
+            $this->addEventRatingOnly($idDisciplineGroup, $date, $idStudent, $rating);
+
+        $day = $this->getDay($idDisciplineGroup, $date);
+
+        $id_day = $day['id'];
+
+        $sql_res = $this->sqldatabase->executeQuery("INSERT INTO day_events (id_day, id_student, rating, id_tasks)
+                                                    VALUES ($id_day, $idStudent, $rating, '$idTask')");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
+    public function addEventRatingOnly($idDisciplineGroup, $date, $idStudent, $rating)
+    {
+        $day = $this->getDay($idDisciplineGroup, $date);
+
+        $id_day = $day['id'];
+
+        $sql_res = $this->sqldatabase->executeQuery("INSERT INTO day_events (id_day, id_student, rating)
+                                                    VALUES ($id_day, $idStudent, $rating)");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
+    public function addEventSkip($idDisciplineGroup, $date, $idStudent)
+    {
+        $day = $this->getDay($idDisciplineGroup, $date);
+
+        $id_day = $day['id'];
+
+        $sql_res = $this->sqldatabase->executeQuery("INSERT INTO day_events (id_day, id_student, rating)
+                                                    VALUES ($id_day, $idStudent, 0)");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
+    public function getDay($idDisciplineGroup, $date)
+    {
+        $query = "SELECT * FROM days WHERE days.id_disc_groups=$idDisciplineGroup AND date='$date'";
+
+        $sql_res = $this->sqldatabase->executeQuery($query);
+
+        if($sql_res->getCountRows() == 0)
+        {
+            $this->sqldatabase->executeQuery("INSERT INTO days (id_disc_groups, date)
+                                                    VALUES ($idDisciplineGroup, '$date')");
+
+            $sql_res = $this->sqldatabase->executeQuery($query);
+        }
+
+        return $sql_res->getRow();
     }
 
     const undefined_result = -1;

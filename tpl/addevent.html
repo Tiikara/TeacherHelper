@@ -1,0 +1,21 @@
+<form enctype="multipart/form-data" action="index.php?module=journal&date=<?=$date?>&add=<?=$idStudent?>&discipline_group=<?=$idDisciplineGroup?>" method="post">
+
+    <label for="rating">Оценка:</label>
+    <select name="rating" id="rating">
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+
+    <label for="task">Задание:</label>
+    <select name="id_task" id="task">
+        <option value=""></option>
+        <? foreach ($tasks as $task): ?>
+            <option value="<?=$task['id']?>"><?=$task['name']?></option>
+        <? endforeach; ?>
+    </select>
+
+    <input type="submit" value="Добавить">
+
+</form>

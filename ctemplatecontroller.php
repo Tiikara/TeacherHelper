@@ -93,4 +93,25 @@ class CTemplateController {
         include "tpl/main.html";
         exit;
     }
+
+    static function drawJournalSelectDate($datetoday)
+    {
+        $bodyName = "tpl/journalselectdate.html";
+        include "tpl/main.html";
+        exit;
+    }
+
+    static function drawJournalDate($date, $schedule)
+    {
+        $bodyName = "tpl/journaldate.html";
+        include "tpl/main.html";
+        exit;
+    }
+
+    static function drawJournalAddEvent($date, $idStudent, $idDisciplineGroup, $tasks)
+    {
+        $bodyName = "tpl/addevent.html";
+        include "tpl/main.html";
+        exit;
+    }
 }

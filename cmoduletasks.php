@@ -23,9 +23,9 @@ class CModuleTasks {
     {
         $database = CDatabase::getInstance();
 
-        if(isset($_POST['description']))
+        if(isset($_POST['name']))
         {
-            $database->addTask($idDiscipline, $_POST['description'], $_POST['date_to'], $_POST['difficulty']);
+            $database->addTask($idDiscipline, $_POST['name'], $_POST['date_to'], $_POST['difficulty']);
         }
 
         if(isset($_GET['delete']))

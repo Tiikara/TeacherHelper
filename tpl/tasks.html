@@ -1,7 +1,7 @@
 <table>
     <? foreach ($tasks as $task): ?>
     <tr>
-        <td><?=$task['description']?></td>
+        <td><?=$task['name']?></td>
         <td><?=$task['date_to']?></td>
         <td><?=$task['difficulty']?></td>
         <td><a href="index.php?module=tasks&disc=<?=$idDiscipline?>&delete=<?=$task['id']?>">Удалить</a></td>
@@ -12,8 +12,8 @@
 <hr>
 
 <form enctype="multipart/form-data" action="index.php?module=tasks&disc=<?=$idDiscipline?>" method="post">
-    Описание работы<br>
-    <textarea name="description"></textarea><br>
+    Название работы<br>
+    <input type="text" name="name" value=""><br>
 
     Требуется сдать до<br>
     <input type="text" name="date_to" value=""><br>
