@@ -1,0 +1,164 @@
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+}
+
+.login {
+
+    width: 300px;
+    margin: 60px auto 30px;
+    padding: 10px;
+    position: relative;
+
+    box-shadow:
+    0 0 1px rgba(0, 0, 0, 0.3),
+    0 3px 7px rgba(0, 0, 0, 0.3),
+    inset 0 1px rgba(255,255,255,1),
+    inset 0 -3px 2px rgba(0,0,0,0.25);
+    border-radius: 5px;
+    background: linear-gradient(#eeefef, #ffffff 10%);
+
+}
+
+.login .field {
+
+    position: relative;
+}
+
+.login .field .icon-login {
+
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    height: 36px;
+    width: 36px;
+    background: url("../images/men.png") no-repeat center ;
+
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.7);
+
+    color: #777777;
+    text-align: center;
+    line-height: 42px;
+    transition: all 0.3s ease-out;
+    pointer-events: none;
+}
+
+.login .field .icon-password {
+
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    height: 36px;
+    width: 36px;
+    background: url("../images/lock.png") no-repeat center ;
+
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.7);
+
+    color: #777777;
+    text-align: center;
+    line-height: 42px;
+    transition: all 0.3s ease-out;
+    pointer-events: none;
+}
+
+.login input[type=text],
+.login input[type=password] {
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+
+    width: 100%;
+    padding: 10px 18px 10px 45px;
+
+    border: none;
+    box-shadow:
+    inset 0 0 5px rgba(0,0,0,0.1),
+    inset 0 3px 2px rgba(0,0,0,0.1);
+    border-radius: 3px;
+    background: #f9f9f9;
+    color: #777;
+    transition: color 0.3s ease-out;
+}
+
+.login input[type=text] {
+    margin-bottom: 10px;
+}
+
+/*стили для состояний hover и focus*/
+
+.login input[type=text]:hover ~ i,
+.login input[type=password]:hover ~ i {
+    color: #52cfeb;
+}
+
+.login input[type=text]:focus ~ i,
+.login input[type=password]:focus ~ i {
+    color: #42A2BC;
+}
+
+.login input[type=text]:focus,
+.login input[type=password]:focus,
+.login button[type=submit]:focus {
+    outline: none;
+}
+
+.login .login-submit {
+    /* Size and position */
+    width: 65px;
+    height: 65px;
+    position: absolute;
+    top: 17px;
+    right: -25px;
+    padding: 10px;
+    z-index: 2;
+
+    /* Styles */
+    background: linear-gradient(#52cfeb, #42A2BC);
+    border-radius: 50%;
+    box-shadow:
+    0 0 2px rgba(0,0,0,0.1),
+    0 3px 2px rgba(0,0,0,0.1),
+    inset 0 -3px 2px rgba(0,0,0,0.2);
+}
+
+.login button {
+    /* Size and position */
+    width: 100%;
+    height: 100%;
+    margin-top: -1px;
+
+    /* Icon styles */
+    font-size: 1.4em;
+    line-height: 1.75;
+    color: white;
+
+    /* Styles */
+    border: none; /* Remove the default border */
+    border-radius: inherit;
+    background: url("../images/cursor.png") no-repeat center;
+    box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.3),
+    0 1px 2px rgba(0,0,0,0.35),
+    inset 0 3px 2px rgba(255,255,255,0.2),
+    inset 0 -3px 2px rgba(0,0,0,0.1);
+
+    cursor: pointer;
+}
+
+/*.login button:hover,
+.login button[type=submit]:focus {
+    background: #52cfeb;
+    transition: all 0.3s ease-out;
+}
+
+.login button:active {
+    background: #42A2BC;
+    box-shadow:
+    inset 0 0 5px rgba(0,0,0,0.3),
+    inset 0 3px 4px rgba(0,0,0,0.3);
+}*/
+

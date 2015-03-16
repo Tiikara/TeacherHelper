@@ -2,37 +2,41 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="css/login.css">
     <title>Авторизация</title>
 </head>
 <body>
 
 <form method="post" action="" class="login">
     <div class="loginform">
-        <p>
-            <label for="login">Логин:</label>
+        <p class="field">
             <input type="text" name="name" id="login">
+            <input class="icon-login" >
         </p>
 
-        <p>
-            <label for="password">Пароль:</label>
+        <p class="field">
             <input type="password" name="password" id="password">
-        </p>
+            <input class="icon-password" >
+         </p>
+
+           <p class="login-submit">
+               <button type="submit" class="login-button"></button>
+           </p>
+                 <a href="index.php?module=register">Регистрация</a>
+            <p>
+
+            </p>
 
         <div class="captcha">
             <?=$captcha?>
         </div>
 
-        <p class="login-submit">
-            <button type="submit" class="login-button">Войти</button>
-            <a href="index.php?module=register">Регистрация</a>
-        </p>
+           <? if($message): ?>
+               <?=$message?>
+           <? endif; ?>
+       </div>
 
-        <? if($message): ?>
-            <?=$message?>
-        <? endif; ?>
-    </div>
+   </form>
 
-</form>
-
-</body>
-</html>
+   </body>
+   </html>
