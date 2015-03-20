@@ -2,19 +2,20 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/register.css">
     <title>Регистрация</title>
 </head>
 <body>
 <form method="post" action="" class="login">
     <div class="loginform">
-        <p>
-            <label for="login">Логин:</label>
+        <p class="field">
             <input type="text" name="name" id="login">
+            <input class="icon-login" >
         </p>
 
-        <p>
-            <label for="password">Пароль:</label>
+        <p class="field">
             <input type="password" name="password" id="password">
+            <input class="icon-password">
         </p>
 
         <div class="captcha">
@@ -22,9 +23,10 @@
         </div>
 
         <p class="login-submit">
-            <button type="submit" formaction="index.php?module=register">Регистрация</button>
-            <a href="index.php">Назад</a>
+            <button type="submit" formaction="index.php?module=register" class="register-button">Регистрация</button>
+            <a href="index.php" class="button8">Назад</a>
         </p>
+
     </div>
 
     <? if($message): ?>

@@ -1,8 +1,22 @@
+    <link rel="stylesheet" href="css/table.css">
+    <table  border="1" cellpadding="0" cellspacing="0" width="50%">
+        <? foreach ($groups as $group): ?>
+        <tr>
+           <td>
+               <?=$group['name']?>
+           </td>
+            <td>
+                <a href="index.php?module=groups&edit=<?=$group['id']?>">Редактировать</a>
+            </td>
+            <td>
+                <a href="index.php?module=groups&delete=<?=$group['id']?>">Удалить</a>
+            </td>
+        </tr>
+        <? endforeach; ?>
+    </table>
 
-<? foreach ($groups as $group): ?>
-    <p><?=$group['name']?> <a href="index.php?module=groups&edit=<?=$group['id']?>">Редактировать</a> <a href="index.php?module=groups&delete=<?=$group['id']?>">Удалить</a></p>
-<? endforeach; ?>
-<hr>
+
+    <hr>
 <form method="post" action="" class="login">
     <div>
         <p>
