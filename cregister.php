@@ -1,7 +1,6 @@
 <?php
 
 include_once("ctemplatecontroller.php");
-include_once("ccaptcha.php");
 include_once("cdatabase.php");
 
 class CRegister {
@@ -20,9 +19,6 @@ class CRegister {
         $md5hash = md5($_POST['name'].$_POST['password']);
 
         $isRegistered = $database->registerUser($_POST['name'], $md5hash);
-
-        if(CCaptcha::isValid() == false)
-            CTemplateController::drawRegisterScreen("Неверно введена каптча!");
 
         if($isRegistered == false)
             CTemplateController::drawRegisterScreen("Пользователь с таким логином уже существует!");

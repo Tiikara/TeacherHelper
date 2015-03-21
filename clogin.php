@@ -1,7 +1,6 @@
 <?php
 
 include_once("ctemplatecontroller.php");
-include_once("ccaptcha.php");
 include_once("cdatabase.php");
 
 class CLogin {
@@ -35,8 +34,7 @@ class CLogin {
         {
             $idUser = $this->getIdUser();
 
-            if(CCaptcha::isValid()  == false ||
-                $idUser == CDatabase::undefined_result)
+            if($idUser == CDatabase::undefined_result)
             {
                 session_destroy();
                 CTemplateController::drawLoginScreen();
