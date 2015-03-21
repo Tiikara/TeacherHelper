@@ -1,6 +1,5 @@
 <?php
 
-
 class CTemplateController {
 
     static function drawLoginScreen($message = null)
@@ -23,106 +22,148 @@ class CTemplateController {
 
     static function drawGroups($groups)
     {
-        $bodyName = "tpl/groups.html";
-        include "tpl/main.html";
-        exit;
+        ob_start();
+        include "tpl/groups.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
     }
 
     static function drawStudents($group, $students)
     {
-        $bodyName = "tpl/editgroup.html";
-        include "tpl/main.html";
-        exit;
+        ob_start();
+        include "tpl/editgroup.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
     }
 
     static function drawEditStudent($group, $student)
     {
-        $bodyName = "tpl/editstudent.html";
-        include "tpl/main.html";
-        exit;
+        ob_start();
+        include "tpl/editstudent.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
     }
 
     static function drawDiscipline($disciplines)
     {
-        $bodyName = "tpl/discipline.html";
-        include "tpl/main.html";
-        exit;
+        ob_start();
+        include "tpl/discipline.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
     }
 
     static function drawEditDiscipline($discipline, $groups)
     {
-        $bodyName = "tpl/editdiscipline.html";
-        include "tpl/main.html";
-        exit;
+        ob_start();
+        include "tpl/editdiscipline.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
     }
 
     static function drawJournal()
     {
-        $bodyName = "tpl/journal.html";
-        include "tpl/main.html";
-        exit;
+        ob_start();
+        include "tpl/journal.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
     }
 
     static function drawSchedule($schedule)
     {
-        $bodyName = "tpl/schedule.html";
-        include "tpl/main.html";
-        exit;
+        ob_start();
+        include "tpl/schedule.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
     }
 
     static function drawAddSchedule($dayOfWeek, $type_lectures, $disc_groups)
     {
-        $bodyName = "tpl/addschedule.html";
-        include "tpl/main.html";
-        exit;
+        ob_start();
+        include "tpl/addschedule.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
     }
 
     static function drawTasksSelect($disciplines)
     {
-        $bodyName = "tpl/tasksselect.html";
-        include "tpl/main.html";
-        exit;
+        ob_start();
+        include "tpl/tasksselect.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
     }
 
     static function drawTasksEdit($idDiscipline, $tasks)
     {
-        $bodyName = "tpl/tasks.html";
-        include "tpl/main.html";
-        exit;
+        ob_start();
+        include "tpl/tasks.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
     }
 
     static function drawJournalSelectDate($datetoday)
     {
-        $bodyName = "tpl/journalselectdate.html";
-        include "tpl/main.html";
-        exit;
+        ob_start();
+        include "tpl/journalselectdate.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
     }
 
     static function drawJournalDate($date, $schedule)
     {
-        $bodyName = "tpl/journaldate.html";
-        include "tpl/main.html";
-        exit;
+        ob_start();
+        include "tpl/journaldate.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
     }
 
     static function drawJournalAddEvent($date, $idStudent, $idDisciplineGroup, $tasks)
     {
-        $bodyName = "tpl/addevent.html";
-        include "tpl/main.html";
-        exit;
+        ob_start();
+        include "tpl/addevent.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
     }
 
     static function drawPhasedControlSelect($disciplineGroups)
     {
-        $bodyName = "tpl/phasedcontrolselect.html";
-        include "tpl/main.html";
-        exit;
+        ob_start();
+        include "tpl/phasedcontrolselect.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
     }
 
     static function drawPhasedControlReport($students)
     {
-        $bodyName = "tpl/phasedcontrolreport.html";
-        include "tpl/main.html";
+        ob_start();
+        include "tpl/phasedcontrolreport.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
+
+    }
+
+    private static function drawBody($body)
+    {
+        if(isset($_GET['ajax'])) {
+            echo $body;
+        } else {
+            include "tpl/main.html";
+        }
+
         exit;
     }
 }
