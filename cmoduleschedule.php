@@ -13,6 +13,7 @@ class CModuleSchedule {
         if(isset($_GET['delete']))
         {
             $database->deleteSchedule($_GET['delete']);
+            exit;
         }
 
         if(isset($_GET['add']))

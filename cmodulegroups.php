@@ -20,6 +20,7 @@ class CModuleGroups {
         if(isset($_GET['delete']))
         {
             $database->deleteGroup($_GET['delete']);
+            exit;
         }
 
         if($_GET['action'] == 'add')

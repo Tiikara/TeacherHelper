@@ -19,6 +19,7 @@ class CModuleDiscipline {
         if(isset($_GET['delete']))
         {
             $database->deleteDiscipline($_GET['delete']);
+            exit;
         }
 
         if($_GET['action'] == 'add')

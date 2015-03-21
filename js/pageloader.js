@@ -1,6 +1,8 @@
 
 $( document ).ready(function() {
 
+    updateEditEvents();
+
     NProgress.configure({ parent: '#pagecontainer' });
 
     $( ".loader-button" ).click(function(event) {
@@ -19,6 +21,8 @@ $( document ).ready(function() {
                 $( "#pagecontainer").html(data);
                 history.pushState('', '', url);
                 NProgress.done();
+
+                updateEditEvents();
             }
         });
 

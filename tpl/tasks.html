@@ -1,10 +1,10 @@
 <table>
     <? foreach ($tasks as $task): ?>
-    <tr>
+    <tr data-main-item-id="<?=$task['id']?>">
         <td><?=$task['name']?></td>
         <td><?=$task['date_to']?></td>
         <td><?=$task['difficulty']?></td>
-        <td><a href="index.php?module=tasks&disc=<?=$idDiscipline?>&delete=<?=$task['id']?>">Удалить</a></td>
+        <td><a class="delete-href" data-item-id="<?=$task['id']?>" href="index.php?module=tasks&disc=<?=$idDiscipline?>&delete=<?=$task['id']?>">Удалить</a></td>
     </tr>
     <? endforeach; ?>
 </table>

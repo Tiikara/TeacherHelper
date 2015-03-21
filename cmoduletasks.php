@@ -31,6 +31,7 @@ class CModuleTasks {
         if(isset($_GET['delete']))
         {
             $database->deleteTask($_GET['delete']);
+            exit;
         }
 
         $tasks = $database->getTasks($idDiscipline);

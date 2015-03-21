@@ -2,7 +2,7 @@
 <tr>
 
 <? foreach ($students as $student): ?>
-    <p><?=$student['name']?> <a href="index.php?module=groups&edit=<?=$group['id']?>&studentedit=<?=$student['id']?>">Редактировать</a> <a href="index.php?module=groups&edit=<?=$group['id']?>&studentdelete=<?=$student['id']?>">Удалить</a> </p>
+    <p data-main-item-id="<?=$student['id']?>"><?=$student['name']?> <a href="index.php?module=groups&edit=<?=$group['id']?>&studentedit=<?=$student['id']?>">Редактировать</a> <a class="delete-href" data-item-id="<?=$student['id']?>" href="index.php?module=groups&edit=<?=$group['id']?>&studentdelete=<?=$student['id']?>">Удалить</a> </p>
 <? endforeach; ?>
 <hr>
 <form method="post" action="" class="login">
