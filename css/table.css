@@ -1,4 +1,7 @@
+@font-face { font-family: 'Calibril'; src: url('../font/calibril.ttf');}
+
 table {
+    font-family:'Calibril';
     overflow:hidden;
     border:1px solid #d3d3d3;
     background:#fefefe;
