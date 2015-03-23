@@ -5,7 +5,7 @@
 
     <table border="1" cellpadding="0" cellspacing="0" width="50%">
         <? foreach ($schedule[$i]['day_week'] as $subject): ?>
-        <tr>
+        <tr data-main-item-id="<?=$subject['id']?>">
             <td><?=$subject['num_lecture']?> пара</td>
             <td>
                 <? if($subject['type_alternation'] == 1): ?>
@@ -19,7 +19,7 @@
             <td><?=$subject['name_type_lecture']?></td>
             <td><?=$subject['name_discipline']?></td>
             <td><?=$subject['name_group']?></td>
-            <td><a href="index.php?module=schedule&delete=<?=$subject['id']?>">Удалить</a></td>
+            <td><a class="delete-href" data-item-id="<?=$subject['id']?>" href="index.php?module=schedule&delete=<?=$subject['id']?>">Удалить</a></td>
         </tr>
         <? endforeach; ?>
     </table>

@@ -11,6 +11,12 @@ class CModuleDiscipline {
     {
         $database = CDatabase::getInstance();
 
+        if(isset($_GET['editname']))
+        {
+            $database->updateNameDiscipline($_GET['editname'], $_POST['ajax_post_value']);
+            exit;
+        }
+
         if(isset($_GET['edit']))
         {
            $this->editDisciplineContent($_GET['edit']);

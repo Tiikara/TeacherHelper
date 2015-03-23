@@ -33,10 +33,46 @@ function updateEditEvents()
                 });
             }
         });
-
-
     });
 
+    var activeEditId = -1;
+    var activeCurrentText;
+    $( '[contenteditable="true"]' ).click(function(event) {
+        event.preventDefault();
 
+        if(activeEditId != $(this).id && $(this).attr("contenteditable") == "true")
+        {
+            activeEditId = $(this).id;
+            activeCurrentText = $(this).html();
+
+        }
+    }).blur(function(event) {
+      //  event.stopImmediatePropagation();
+
+        if(activeEditId==$(this).id)
+        {
+            activeEditId = -1;
+            if(activeCurrentText != $(this).html())
+            {
+                var webElement = $(this);
+
+                $.ajax({
+                    url: webElement.attr("data-edit-url"),
+                    type: 'POST',
+                    data: { ajax_post_value: webElement.html()},
+                    success: function (data) {
+                        webElement.children(".spinner").detach();
+                        webElement.attr("contenteditable", "true");
+                    }
+                });
+
+                $(this).append('<div class="spinner"> \
+                                            <div class="spinner-icon" style="text-align: center;"></div> \
+                                        </div>');
+
+                $(this).attr("contenteditable", "false");
+            }
+        }
+    });
 
 };

@@ -110,6 +110,16 @@ class CDatabase {
         return $sql_res->getRow();
     }
 
+    public function updateGroupName($idGroup, $newName)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("UPDATE groups SET name='$newName' WHERE id=$idGroup");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
     public function getGroups($idAcademicYear)
     {
         $sql_res = $this->sqldatabase->executeQuery("SELECT id, name FROM groups WHERE id_academicyear=$idAcademicYear");
@@ -170,6 +180,16 @@ class CDatabase {
     public function addDiscipline($name, $idAcademicYear)
     {
         $sql_res = $this->sqldatabase->executeQuery("INSERT INTO discipline (name, id_academicyear) VALUES ('$name', $idAcademicYear)");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
+    public function updateNameDiscipline($idDiscipline, $name)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("UPDATE discipline SET name='$name' WHERE id=$idDiscipline");
 
         if($sql_res == CSqlDatabase::sqlerror)
             return false;

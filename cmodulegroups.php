@@ -12,6 +12,12 @@ class CModuleGroups {
     {
         $database = CDatabase::getInstance();
 
+        if(isset($_GET['editname']))
+        {
+            $database->updateGroupName($_GET['editname'], $_POST['ajax_post_value']);
+            exit;
+        }
+
         if(isset($_GET['edit']))
         {
             $this->editGroupContent($_GET['edit']);
