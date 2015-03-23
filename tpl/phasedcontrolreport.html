@@ -2,12 +2,14 @@
     <tr>
         <td>Студент</td>
         <td>Оценка</td>
+        <td>Кол-во пропусков</td>
     </tr>
 
     <? foreach ($students as $student): ?>
         <tr>
             <td><?=$student['name']?></td>
             <td><?=$student['rating']?></td>
+            <td><?=$student['count_skip']?></td>
         </tr>
     <? endforeach; ?>
 </table>

@@ -309,9 +309,9 @@ class CDatabase {
     {
         $sql_res = $this->sqldatabase->executeQuery("SELECT tasks.id AS id, tasks.name AS name, tasks.date_to AS date_to,
                                                       tasks.difficulty AS difficulty
-                                                     FROM tasks, day_events
+                                                     FROM tasks
                                                      WHERE tasks.id_discipline=$idDiscipline
-                                                     AND tasks.date_to < $maxDate");
+                                                     AND tasks.date_to < '$maxDate'");
 
         return $sql_res->getArrayRows();
     }
@@ -336,7 +336,7 @@ class CDatabase {
                                                      AND day_events.id_student=students.id
                                                      AND day_events.id_tasks IS NOT NULL
                                                      AND tasks.id=day_events.id_tasks
-                                                     AND tasks.date_to < $dateTo");
+                                                     AND tasks.date_to < '$dateTo'");
 
         return $sql_res->getArrayRows();
     }
@@ -433,6 +433,19 @@ class CDatabase {
             return false;
 
         return true;
+    }
+
+    public function getCountSkipLecture($idStudent, $idDisciplineGroup, $dateFrom, $dateTo)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT *
+                                                     FROM day_events, days
+                                                     WHERE days.date > '$dateFrom' AND days.date < '$dateTo'
+                                                     AND day_events.id_day=days.id
+                                                     AND days.id_disc_groups=$idDisciplineGroup
+                                                     AND day_events.id_student=$idStudent
+                                                     AND day_events.rating=0");
+
+        return $sql_res->getCountRows();
     }
 
     public function getDay($idDisciplineGroup, $date)

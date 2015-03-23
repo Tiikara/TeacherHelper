@@ -46,6 +46,12 @@ class CModulePhasedControl {
         $students = $database->getStudentsFromDisciplineGroup($idDisciplineGroup);
         for($i=0;$i<count($students);$i++)
         {
+            /*
+             * Вычисление средней оценки.
+             *
+             * На основе оценок от начала семестра до указанной даты.
+             *
+             * */
             $doneTasks = $database->getDoneTasks($discipline['id'], $students[$i]['id'], $dateTo);
             $studentDifficulty = 0;
             foreach($doneTasks as $task)
@@ -53,7 +59,18 @@ class CModulePhasedControl {
                 $studentDifficulty += $task['difficulty'];
             }
 
-            $students[$i]['rating'] = ($studentDifficulty / $allDifficulty) * 3 + 2;
+            if($allDifficulty == 0) {
+                $students[$i]['rating'] = 5;
+            } else {
+                $students[$i]['rating'] = ($studentDifficulty / $allDifficulty) * 3 + 2;
+            }
+
+
+            /*
+             * Количество пропусков
+             *
+             * */
+            $students[$i]['count_skip'] = $database->getCountSkipLecture($students[$i]['id'], $idDisciplineGroup, $dateFrom, $dateTo);
         }
 
         CTemplateController::drawPhasedControlReport($students);
