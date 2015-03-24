@@ -35,43 +35,33 @@ function updateEditEvents()
         });
     });
 
-    var activeEditId = -1;
-    var activeCurrentText;
-    $( '[contenteditable="true"]' ).click(function(event) {
-        event.preventDefault();
+    $( '[contenteditable="true"]' ).focus(function(event) {
 
-        if(activeEditId != $(this).id && $(this).attr("contenteditable") == "true")
-        {
-            activeEditId = $(this).id;
-            activeCurrentText = $(this).html();
+        $(this).data("before_text", $(this).text())
 
-        }
     }).blur(function(event) {
-      //  event.stopImmediatePropagation();
-
-        if(activeEditId==$(this).id)
+        if($(this).data("before_text") !== $(this).text())
         {
-            activeEditId = -1;
-            if(activeCurrentText != $(this).html())
-            {
-                var webElement = $(this);
+            $(this).data("before_text", $(this).text());
 
-                $.ajax({
-                    url: webElement.attr("data-edit-url"),
-                    type: 'POST',
-                    data: { ajax_post_value: webElement.html()},
-                    success: function (data) {
-                        webElement.children(".spinner").detach();
-                        webElement.attr("contenteditable", "true");
-                    }
-                });
+            var webElement = $(this);
 
-                $(this).append('<div class="spinner"> \
-                                            <div class="spinner-icon" style="text-align: center;"></div> \
-                                        </div>');
+            $.ajax({
+                url: webElement.attr("data-edit-url"),
+                type: 'POST',
+                data: { ajax_post_value: webElement.text()},
+                success: function (data) {
+                    webElement.children(".spinner").detach();
+                    webElement.attr("contenteditable", "true");
+                }
+            });
 
-                $(this).attr("contenteditable", "false");
-            }
+            $(this).append('<div class="spinner"> \
+                                        <div class="spinner-icon" style="text-align: center;"></div> \
+                                    </div>');
+
+            $(this).attr("contenteditable", "false");
+
         }
     });
 
