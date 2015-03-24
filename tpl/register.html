@@ -2,33 +2,31 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="css/login.css">
     <title>Регистрация</title>
 </head>
 <body>
-<form method="post" action="" class="login">
-    <div class="loginform">
-        <p class="field">
-            <input type="text" name="name" id="login">
-            <input class="icon-login" >
-        </p>
-
-        <p class="field">
-            <input type="password" name="password" id="password">
-            <input class="icon-password">
-        </p>
-
-        <p class="login-submit">
-            <button type="submit" formaction="index.php?module=register" class="register-button">Регистрация</button>
-            <a href="index.php" class="button8">Назад</a>
-        </p>
+<section class="container">
+    <div class="login">
+      <h1>Регистрация нового аккаунта</h1>
+      <form method="post" action="">
+        <p><input type="text" name="name" id="login" value="" placeholder="Логин"></p>
+        <p><input type="password" name="password"  id="password" value="" placeholder="Пароль"></p>
+                <p class="submit">
+            <input type="submit" value="Регистрация"></p>
+      </form>
 
     </div>
-
-    <? if($message): ?>
-        <?=$message?>
+		      <? if($message): ?>
+			  <div class="login_reg">
+        <?=$message?> <a href="index.php">Войти в аккаунт</a>
+		</div>
     <? endif; ?>
-</form>
+  </section>
+
+
+
+
 
 </body>
 </html>

@@ -7,32 +7,26 @@
 </head>
 <body>
 
-<form method="post" action="" class="login">
-    <div class="loginform">
-        <p class="field">
-            <input type="text" name="name" id="login">
-            <input class="icon-login" >
+  <section class="container">
+    <div class="login">
+      <h1>Войти в личный кабинет</h1>
+      <form method="post" action="">
+        <p><input type="text" name="name" id="login" value="" placeholder="Логин"></p>
+        <p><input type="password" name="password"  id="password" value="" placeholder="Пароль"></p>
+        <p class="remember_me">
+          <label>
+            <input type="checkbox" name="remember_me" id="remember_me">
+            Запомнить меня
+          </label>
         </p>
+        <p class="submit"><input type="submit" name="commit" value="Войти"></p>
+      </form>
+	  
+    </div>
 
-        <p class="field">
-            <input type="password" name="password" id="password">
-            <input class="icon-password" >
-         </p>
-
-           <p class="login-submit">
-               <button type="submit" class="login-button"></button>
-           </p>
-
-            <p>
-                <a href="index.php?module=register" class="register-button">Регистрация</a>
-            </p>
-
-           <? if($message): ?>
-               <?=$message?>
-           <? endif; ?>
-       </div>
-
-   </form>
-
+  </section>
+  <div class="reg">
+<a href="index.php?module=register"><img src="images/reg.png"></a>
+   </div>
    </body>
    </html>
