@@ -1,10 +1,39 @@
-<p><b><?=$group['name']?></b></p>
-<tr>
+<link rel="stylesheet" href="css/table.css">
+<table  border="1" cellpadding="0" cellspacing="0" width="50%">
+<tr><td>
+<b>Группа <?=$group['name']?></b>
+</td></tr>
+</table>
 
+<table  border="1" cellpadding="0" cellspacing="0" width="50%">
 <? foreach ($students as $student): ?>
-    <p data-main-item-id="<?=$student['id']?>"><?=$student['name']?> <a href="index.php?module=groups&edit=<?=$group['id']?>&studentedit=<?=$student['id']?>">Редактировать</a> <a class="delete-href" data-item-id="<?=$student['id']?>" href="index.php?module=groups&edit=<?=$group['id']?>&studentdelete=<?=$student['id']?>">Удалить</a> </p>
+    <tr data-main-item-id="<?=$student['id']?>">
+	<td  width="200" contenteditable="true"> <?=$student['name']?> </td> 
+	<td><a class="edit" href="index.php?module=groups&edit=<?=$group['id']?>&studentedit=<?=$student['id']?>">Редактировать</a> </td>
+	<td><a class="delete" data-item-id="<?=$student['id']?>" href="index.php?module=groups&edit=<?=$group['id']?>&studentdelete=<?=$student['id']?>">Удалить</a> </td>
+	</tr>
+	
 <? endforeach; ?>
-<hr>
+</table>
+
+<script type="text/javascript">
+
+					//Функция показа
+			function show(state){
+
+					document.getElementById('window').style.display = state;			
+					document.getElementById('wrap').style.display = state; 			
+			}
+			
+		</script>
+					<!-- Задний прозрачный фон-->
+		<div onclick="show('none')" id="wrap"></div>
+
+					<!-- Само окно-->
+			<div id="window">
+						
+						 <!-- Картинка крестика-->
+				<img class="close" onclick="show('none')" src="images/close.png">
 <form method="post" action="" class="login">
     <div>
         <p>
@@ -17,3 +46,8 @@
         </p>
     </div>
 </form>
+
+				
+			</div>
+<br>
+		<center><button onclick="show('block')">Добавить студента</button></center>	

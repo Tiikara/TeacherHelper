@@ -43,6 +43,14 @@ td {
  padding: 6px 30px; color: #185379; text-decoration: none; background: url('../images/oki.png') no-repeat; font-size: 13px; text-transform: uppercase;
 }
 
+.connect {
+ padding: 6px 30px; color: #185379; text-decoration: none; background: url('../images/connect.png') no-repeat; font-size: 13px; text-transform: uppercase;
+}
+
+.disconnect {
+ padding: 6px 30px; color: #185379; text-decoration: none; background: url('../images/disconnect.png') no-repeat; font-size: 13px; text-transform: uppercase;
+}
+
 .close{
 		margin-left: 364px;
 		margin-top: 4px;
