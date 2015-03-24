@@ -13,7 +13,7 @@ function modal_confirm(settings)
     var html_block = '<div class="modal" style="display: none;" id="confirm"> \
                         <div class="modal-content"> \
                             <div id="confirm-text">'+ settings.text +'<br> \
-                                <a id="confirm-yes" href="">Да</a> | <a id="confirm-no" href="">Нет</a> \
+                                <a id="confirm-yes" href="" class="ok"></a><a id="confirm-no" href="" class="no"></a> \
                             </div> \
                         </div>';
 
