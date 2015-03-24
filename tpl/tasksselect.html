@@ -3,7 +3,7 @@
     <? foreach ($disciplines as $discipline): ?>
         <tr>
             <td><?=$discipline['name']?></td>
-            <td><a href="index.php?module=tasks&disc=<?=$discipline['id']?>">Выбрать</a></td>
+            <td><a class="oki" href="index.php?module=tasks&disc=<?=$discipline['id']?>">Выбрать</a></td>
         </tr>
     <? endforeach; ?>
 </table>

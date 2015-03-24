@@ -19,6 +19,8 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
+a { color:#185379; text-decoration:none; } a:hover { text-decoration:none; }
+
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;

@@ -2,18 +2,37 @@
 <table  border="1" cellpadding="0" cellspacing="0" width="50%">
     <? foreach ($disciplines as $discipline): ?>
         <tr data-main-item-id="<?=$discipline['id']?>">
-            <td contenteditable="true" data-edit-url="index.php?module=discipline&editname=<?=$discipline['id']?>"><?=$discipline['name']?></td>
+            <td width="200" contenteditable="true" data-edit-url="index.php?module=discipline&editname=<?=$discipline['id']?>"><?=$discipline['name']?></td>
             <td>
-                <a href="index.php?module=discipline&edit=<?=$discipline['id']?>">Редактировать</a>
+                <a href="index.php?module=discipline&edit=<?=$discipline['id']?>" class="edit">Редактировать</a>
             </td>
             <td>
-                <a class="delete-href" data-item-id="<?=$discipline['id']?>" href="index.php?module=discipline&delete=<?=$discipline['id']?>">Удалить</a>
+                <a class="delete" data-item-id="<?=$discipline['id']?>" href="index.php?module=discipline&delete=<?=$discipline['id']?>" >Удалить</a>
             </td>
         </tr>
     <? endforeach; ?>
 </table>
 
-<hr>
+
+
+<script type="text/javascript">
+
+					//Функция показа
+			function show(state){
+
+					document.getElementById('window').style.display = state;			
+					document.getElementById('wrap').style.display = state; 			
+			}
+			
+		</script>
+					<!-- Задний прозрачный фон-->
+		<div onclick="show('none')" id="wrap"></div>
+
+					<!-- Само окно-->
+			<div id="window">
+						
+						 <!-- Картинка крестика-->
+				<img class="close" onclick="show('none')" src="images/close.png">
 <form method="post" action="" class="login">
     <div>
         <p>
@@ -26,3 +45,8 @@
         </p>
     </div>
 </form>
+				
+			</div>
+<br>
+		<center><button onclick="show('block')">Добавить дисциплину</button></center>	
+
