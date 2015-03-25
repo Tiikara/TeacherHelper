@@ -110,6 +110,13 @@ class CDatabase {
         return $sql_res->getRow();
     }
 
+    public function getGroupFromName($name, $idAcademicYear)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT id, name FROM groups WHERE name='$name' AND id_academicyear=$idAcademicYear");
+
+        return $sql_res->getRow();
+    }
+
     public function updateGroupName($idGroup, $newName)
     {
         $sql_res = $this->sqldatabase->executeQuery("UPDATE groups SET name='$newName' WHERE id=$idGroup");
@@ -207,6 +214,13 @@ class CDatabase {
     public function getDiscipline($idDiscipline)
     {
         $sql_res = $this->sqldatabase->executeQuery("SELECT id, name FROM discipline WHERE id=$idDiscipline");
+
+        return $sql_res->getRow();
+    }
+
+    public function getDisciplineFromName($name, $idAcademicYear)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT id, name FROM discipline WHERE id_academicyear=$idAcademicYear AND name='$name'");
 
         return $sql_res->getRow();
     }

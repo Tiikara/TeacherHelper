@@ -1,8 +1,15 @@
 
 function updateEditEvents()
 {
-    $( ".delete-href" ).click(function(event) {
+    var webDeleteHref = $( '.delete-href' );
+    var webContenteditable = $( '[contenteditable]' );
 
+    webDeleteHref.unbind('click', updateEditEvents.clickDeleteHref);
+    webContenteditable.unbind('focus', updateEditEvents.focusContentEditable);
+    webContenteditable.unbind('blur', updateEditEvents.blurContentEditable);
+
+    updateEditEvents.clickDeleteHref = function(event)
+    {
         event.preventDefault();
 
         var webElement = $(this);
@@ -33,13 +40,15 @@ function updateEditEvents()
                 });
             }
         });
-    });
+    }
 
-    $( '[contenteditable="true"]' ).focus(function(event) {
+    updateEditEvents.focusContentEditable = function(event)
+    {
+        $(this).data("before_text", $(this).text());
+    }
 
-        $(this).data("before_text", $(this).text())
-
-    }).blur(function(event) {
+    updateEditEvents.blurContentEditable = function(event)
+    {
         if($(this).data("before_text") !== $(this).text())
         {
             $(this).data("before_text", $(this).text());
@@ -56,13 +65,97 @@ function updateEditEvents()
                 }
             });
 
-            $(this).append('<div class="spinner"> \
+            $(this).append('<div class="spinner" style="padding-left: 5px;"> \
                                         <div class="spinner-icon" style="text-align: center;"></div> \
                                     </div>');
 
             $(this).attr("contenteditable", "false");
 
         }
-    });
+    }
 
-};
+    webDeleteHref.bind('click', updateEditEvents.clickDeleteHref);
+    webContenteditable.bind('focus', updateEditEvents.focusContentEditable);
+    webContenteditable.bind('blur', updateEditEvents.blurContentEditable);
+
+    $( ".add-href" ).click(function(event) {
+        event.preventDefault();
+
+        var url = $(this).attr("href");
+
+        var webLoad;
+
+        if(updateEditEvents.countAddRequests == 0)
+        {
+            var block_load = '<div class="spinner" style="padding-top: 10px;"> \
+                                <div class="spinner-icon" style="text-align: center;"></div> \
+                            </div>';
+            webLoad = $(block_load);
+            webLoad.appendTo( $('.add-load') );
+        }
+        else
+        {
+            webLoad = $('.add-load .spinner');
+        }
+
+        updateEditEvents.countAddRequests++;
+
+        var ids = $(this).attr("data-add-ids").split(" ");
+
+        var jsonStrData = "{";
+
+        for(var i=0;i<ids.length;i++)
+        {
+            if(i!=0)
+            {
+                jsonStrData += ",";
+            }
+
+            jsonStrData += '"' + ids[i] + '":"'+ $("#"+ids[i]).val()+'"';
+        }
+
+        jsonStrData+="}";
+
+        var jsonSendData = JSON.parse(jsonStrData);
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: jsonSendData,
+            success: function (data) {
+
+                updateEditEvents.countAddRequests--;
+
+                if(updateEditEvents.countAddRequests == 0)
+                {
+                    webLoad.detach();
+                }
+
+                var objData = JSON.parse(data);
+
+                if(typeof objData == "undefined")
+                {
+                    return;
+                }
+
+                var newStrElement = $("#add-template")[0].outerHTML;
+
+                for(var key in objData) {
+                    newStrElement = newStrElement.replace(new RegExp("::"+key+"::", "g") , objData[key]);
+                }
+
+                var newElement = $(newStrElement);
+
+                newElement.removeAttr("style");
+                newElement.removeAttr("id");
+                newElement.show("slow");
+
+                $("table#table-edit").append(newElement);
+
+                updateEditEvents();
+            }
+        });
+    });
+}
+
+updateEditEvents.countAddRequests = 0;

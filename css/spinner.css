@@ -1,5 +1,5 @@
 .spinner {
-    display: block;
+    display: inline-block;
     z-index: 1031;
 }
 

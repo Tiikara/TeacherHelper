@@ -31,7 +31,20 @@ class CModuleGroups {
 
         if($_GET['action'] == 'add')
         {
-            $database->addGroup($_POST['name'], CModuleAcademicYear::getId());
+            $add_status = $database->addGroup($_POST['name'], CModuleAcademicYear::getId());
+
+            if($add_status == false)
+            {
+                exit;
+            }
+
+            $group = $database->getGroupFromName($_POST['name'], CModuleAcademicYear::getId());
+
+            $groupJson['id'] = $group['id'];
+            $groupJson['name'] = $group['name'];
+
+            echo json_encode($groupJson);
+            exit;
         }
 
         $groups = $database->getGroups(CModuleAcademicYear::getId());

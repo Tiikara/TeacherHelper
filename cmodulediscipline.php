@@ -30,7 +30,20 @@ class CModuleDiscipline {
 
         if($_GET['action'] == 'add')
         {
-            $database->addDiscipline($_POST['name'], CModuleAcademicYear::getId());
+            $add_status = $database->addDiscipline($_POST['name'], CModuleAcademicYear::getId());
+
+            if($add_status == false)
+            {
+                exit;
+            }
+
+            $discipline = $database->getDisciplineFromName($_POST['name'], CModuleAcademicYear::getId());
+
+            $disciplineJson['id'] = $discipline['id'];
+            $disciplineJson['name'] = $discipline['name'];
+
+            echo json_encode($disciplineJson);
+            exit;
         }
 
         $disciplines = $database->getDisciplines(CModuleAcademicYear::getId());
