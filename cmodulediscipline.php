@@ -47,6 +47,13 @@ class CModuleDiscipline {
         }
 
         $disciplines = $database->getDisciplines(CModuleAcademicYear::getId());
+
+        $addTemplate['isAddTemplate'] = true;
+        $addTemplate['id'] = '::id::';
+        $addTemplate['name'] = '::name::';
+
+        $disciplines[] = $addTemplate;
+
         CTemplateController::drawDiscipline($disciplines);
     }
 

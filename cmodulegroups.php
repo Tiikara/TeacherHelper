@@ -48,6 +48,13 @@ class CModuleGroups {
         }
 
         $groups = $database->getGroups(CModuleAcademicYear::getId());
+
+        $addTemplate['isAddTemplate'] = true;
+        $addTemplate['id'] = '::id::';
+        $addTemplate['name'] = '::name::';
+
+        $groups[] = $addTemplate;
+
         CTemplateController::drawGroups($groups);
     }
 

@@ -3,10 +3,12 @@ function updateEditEvents()
 {
     var webDeleteHref = $( '.delete-href' );
     var webContenteditable = $( '[contenteditable]' );
+    var webAddHref = $( '.add-href' );
 
     webDeleteHref.unbind('click', updateEditEvents.clickDeleteHref);
     webContenteditable.unbind('focus', updateEditEvents.focusContentEditable);
     webContenteditable.unbind('blur', updateEditEvents.blurContentEditable);
+    webAddHref.unbind('click', updateEditEvents.clickAddHref);
 
     updateEditEvents.clickDeleteHref = function(event)
     {
@@ -40,12 +42,12 @@ function updateEditEvents()
                 });
             }
         });
-    }
+    };
 
     updateEditEvents.focusContentEditable = function(event)
     {
         $(this).data("before_text", $(this).text());
-    }
+    };
 
     updateEditEvents.blurContentEditable = function(event)
     {
@@ -72,13 +74,10 @@ function updateEditEvents()
             $(this).attr("contenteditable", "false");
 
         }
-    }
+    };
 
-    webDeleteHref.bind('click', updateEditEvents.clickDeleteHref);
-    webContenteditable.bind('focus', updateEditEvents.focusContentEditable);
-    webContenteditable.bind('blur', updateEditEvents.blurContentEditable);
-
-    $( ".add-href" ).click(function(event) {
+    updateEditEvents.clickAddHref = function(event)
+    {
         event.preventDefault();
 
         var url = $(this).attr("href");
@@ -146,8 +145,7 @@ function updateEditEvents()
 
                 var newElement = $(newStrElement);
 
-                newElement.removeAttr("style");
-                newElement.removeAttr("id");
+                newElement.removeAttr("id", "add-template");
                 newElement.show("slow");
 
                 $("table#table-edit").append(newElement);
@@ -155,7 +153,12 @@ function updateEditEvents()
                 updateEditEvents();
             }
         });
-    });
+    };
+
+    webDeleteHref.bind('click', updateEditEvents.clickDeleteHref);
+    webContenteditable.bind('focus', updateEditEvents.focusContentEditable);
+    webContenteditable.bind('blur', updateEditEvents.blurContentEditable);
+    webAddHref.bind('click', updateEditEvents.clickAddHref);
 }
 
 updateEditEvents.countAddRequests = 0;
