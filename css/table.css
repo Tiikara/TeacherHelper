@@ -52,10 +52,20 @@ td {
 }
 
 .close{
-		margin-left: 364px;
-		margin-top: 4px;
-		cursor: pointer;
+ float:right; margin-right: 14px; margin-top: 10px; cursor: pointer; 
 	}
+	
+.frt{
+	height: 40px; margin-top: 0px; background: #eaeaea;
+	}
+	
+.txt{ 
+	float:left; font-family:'Calibril'; margin-top: 10px; margin-left: 15px; text-transform: uppercase; color: #185379; text-decoration: none;
+	}
+
+.forma{
+font-family:'Calibril'; margin-left: 15px;
+}	
 
    button {
     border: 5px solid transparent;
@@ -82,7 +92,8 @@ td {
 	
 	#window{
 		width: 400px;
-		height: 150px;
+		border-radius: 5px;
+		height: 160px;
 		margin: 50px auto;
 		display: none;
 		background: #fff;
@@ -92,5 +103,5 @@ td {
 		right: 0;
 		top: 0;
 		bottom: 0;
-		padding: 16px;
+		padding-top: 12px;
 	}
