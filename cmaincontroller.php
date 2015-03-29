@@ -11,6 +11,7 @@ include_once("cmoduleschedule.php");
 include_once("cmoduletasks.php");
 include_once("cmodulejournal.php");
 include_once("cmodulephasedcontrol.php");
+include_once("cmoduletickets.php");
 
 
 class CMainController {
@@ -47,6 +48,9 @@ class CMainController {
                 break;
             case 'phasedcontrol':
                 $module = new CModulePhasedControl();
+                break;
+            case 'tickets':
+                $module = new CModuleTickets();
                 break;
             default:
                 $module = new CModuleGroups();

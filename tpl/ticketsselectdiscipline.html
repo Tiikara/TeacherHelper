@@ -1,0 +1,9 @@
+<link rel="stylesheet" href="css/table.css">
+<table  border="1" cellpadding="0" cellspacing="0" width="50%">
+    <? foreach ($disciplines as $discipline): ?>
+    <tr>
+        <td><?=$discipline['name']?></td>
+        <td><a class="oki" href="index.php?module=tickets&disc=<?=$discipline['id']?>">Выбрать</a></td>
+    </tr>
+    <? endforeach; ?>
+</table>

@@ -82,6 +82,11 @@ class CSqlDatabase
             return new CSqlResult($result);
     }
 
+    public function getInsertId()
+    {
+        return mysqli_insert_id($this->mysqli);
+    }
+
     const sqlerror = -1;
 
     private $mysqli;

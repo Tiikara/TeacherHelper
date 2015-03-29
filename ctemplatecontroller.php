@@ -156,6 +156,42 @@ class CTemplateController {
 
     }
 
+    static function drawTicketsSelectDiscipline($disciplines)
+    {
+        ob_start();
+        include "tpl/ticketsselectdiscipline.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
+    }
+
+    static function drawTicketsQuestions($idDiscipline, $questions, $themes)
+    {
+        ob_start();
+        include "tpl/ticketsquestions.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
+    }
+
+    static function drawTicketsEditTheme($idDiscipline, $themes)
+    {
+        ob_start();
+        include "tpl/ticketsedittheme.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
+    }
+
+    static function drawTicketsReport($tickets)
+    {
+        ob_start();
+        include "tpl/ticketsreport.html";
+        $body = ob_get_clean();
+
+        self::drawBody($body);
+    }
+
     private static function drawBody($body)
     {
         if(isset($_GET['ajax'])) {

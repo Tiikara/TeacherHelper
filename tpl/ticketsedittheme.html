@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="css/table.css">
+<table id="table-edit" border="1" cellpadding="0" cellspacing="0" width="50%">
+    <? foreach ($themes as $theme): ?>
+
+    <? if(isset($theme['isAddTemplate'])): ?>
+    <tr style="display: none;" id="add-template" data-main-item-id="<?=$theme['id']?>">
+        <? else: ?>
+    <tr  data-main-item-id="<?=$theme['id']?>">
+        <? endif; ?>
+
+        <td  width="200" contenteditable="true" data-edit-url="index.php?module=tickets&disc=<?=$idDiscipline?>&theme&edit=<?=$theme['id']?>"><?=$theme['name']?></td>
+        <td>
+            <a class="delete delete-href" data-item-id="<?=$theme['id']?>" href="index.php?module=tickets&disc=<?=$idDiscipline?>&theme&delete=<?=$theme['id']?>">Удалить</a>
+        </td>
+    </tr>
+    <? endforeach; ?>
+</table>
+<div class="add-load" style="text-align: center;"></div>
+
+<script type="text/javascript">
+
+    //Функция показа
+    function show(state){
+
+        document.getElementById('window').style.display = state;
+        document.getElementById('wrap').style.display = state;
+    }
+
+</script>
+<!-- Задний прозрачный фон-->
+<div onclick="show('none')" id="wrap"></div>
+
+<!-- Само окно-->
+<div id="window">
+
+    <!-- Картинка крестика-->
+    <div class="frt">
+        <font class="txt">Добавление</font>
+        <img class="close" onclick="show('none')" src="images/close.png">
+    </div>
+    <div class="forma">
+        <p>
+            <label for="name">Название темы:</label></br>
+            <input type="text" name="name" id="name">
+        </p>
+
+        <p class="login-submit">
+            <a class="add-href" data-add-ids="name" href="index.php?module=tickets&disc=<?=$idDiscipline?>&theme&action=add" onclick="show('none')"><button>Добавить</button></a>
+        </p>
+    </div>
+
+
+</div>
+<br>
+<center><button onclick="show('block')">Добавить тему</button></center>

@@ -499,6 +499,104 @@ class CDatabase {
         return $sql_res->getRow();
     }
 
+    public function getQuestions($idDiscipline)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT question.id AS id,
+                                                            theme_question.id AS id_theme_question,
+                                                            theme_question.name AS name_theme_question,
+                                                            question.description AS description,
+                                                            question.difficulty AS difficulty
+                                                     FROM question, theme_question
+                                                     WHERE question.id_theme_question=theme_question.id
+                                                     AND theme_question.id_discipline=$idDiscipline");
+
+        return $sql_res->getArrayRows();
+    }
+
+    public function getLastAddedQuestion()
+    {
+        $id = $this->sqldatabase->getInsertId();
+
+        $sql_res = $this->sqldatabase->executeQuery("SELECT question.id AS id,
+                                                            theme_question.id AS id_theme_question,
+                                                            theme_question.name AS name_theme_question,
+                                                            question.description AS description,
+                                                            question.difficulty AS difficulty
+                                                     FROM question, theme_question
+                                                     WHERE question.id_theme_question=theme_question.id
+                                                     AND question.id=$id");
+
+        return $sql_res->getRow();
+    }
+
+    public function deleteQuestion($idQuestion)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("DELETE FROM question WHERE id=$idQuestion");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
+    public function addQuestion($idTheme, $description, $difficulty)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("INSERT INTO question (id_theme_question, description, difficulty)
+                                                    VALUES ($idTheme, '$description', $difficulty)");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
+    public function getThemes($idDiscipline)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT theme_question.id AS id,
+                                                            theme_question.name AS name
+                                                     FROM theme_question
+                                                     WHERE theme_question.id_discipline=$idDiscipline");
+
+        return $sql_res->getArrayRows();
+    }
+
+    public function updateNameTheme($idTheme, $name)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("UPDATE theme_question SET name='$name' WHERE id=$idTheme");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
+    public function deleteTheme($idTheme)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("DELETE FROM theme_question WHERE id=$idTheme");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
+    public function addTheme($name, $idDiscipline)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("INSERT INTO theme_question (name, id_discipline) VALUES ('$name', $idDiscipline)");
+
+        if($sql_res == CSqlDatabase::sqlerror)
+            return false;
+
+        return true;
+    }
+
+    public function getThemeFromName($name, $idDiscipline)
+    {
+        $sql_res = $this->sqldatabase->executeQuery("SELECT id, name FROM theme_question WHERE name='$name' AND id_discipline=$idDiscipline");
+
+        return $sql_res->getRow();
+    }
+
     const undefined_result = -1;
 
     static protected $instance;
