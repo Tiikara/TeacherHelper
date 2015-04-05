@@ -1,10 +1,16 @@
-<table>
+<link rel="stylesheet" href="css/table.css">
+<table  border="1" cellpadding="0" cellspacing="0" width="50%">
+    <tr>
+        <td>Название работы</td>
+        <td>Сдать до</td>
+        <td>Сложность</td>
+    </tr>
     <? foreach ($tasks as $task): ?>
     <tr data-main-item-id="<?=$task['id']?>">
         <td><?=$task['name']?></td>
         <td><?=$task['date_to']?></td>
         <td><?=$task['difficulty']?></td>
-        <td><a class="delete-href" data-item-id="<?=$task['id']?>" href="index.php?module=tasks&disc=<?=$idDiscipline?>&delete=<?=$task['id']?>">Удалить</a></td>
+        <td><a class="delete" data-item-id="<?=$task['id']?>" href="index.php?module=tasks&disc=<?=$idDiscipline?>&delete=<?=$task['id']?>">Удалить</a></td>
     </tr>
     <? endforeach; ?>
 </table>

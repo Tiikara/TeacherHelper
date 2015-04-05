@@ -1,9 +1,16 @@
-<link rel="stylesheet" href="css/table.css">
-<? for($i=0;$i<7;$i++): ?>
+<link rel="stylesheet" href="css/schedule.css">
 
-<b><?=$schedule[$i]['name_day']?></b><br><br>
 
     <table border="1" cellpadding="0" cellspacing="0" width="50%">
+        <? for($i=0;$i<7;$i++): ?>
+        <tr class = "name-day">
+            <td class="name-day"><?=$schedule[$i]['name_day']?></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
         <? foreach ($schedule[$i]['day_week'] as $subject): ?>
         <tr data-main-item-id="<?=$subject['id']?>">
             <td><?=$subject['num_lecture']?> пара</td>
@@ -19,11 +26,17 @@
             <td><?=$subject['name_type_lecture']?></td>
             <td><?=$subject['name_discipline']?></td>
             <td><?=$subject['name_group']?></td>
-            <td><a class="delete-href" data-item-id="<?=$subject['id']?>" href="index.php?module=schedule&delete=<?=$subject['id']?>">Удалить</a></td>
+            <td><a class="delete" data-item-id="<?=$subject['id']?>" href="index.php?module=schedule&delete=<?=$subject['id']?>"></a></td>
         </tr>
         <? endforeach; ?>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="index.php?module=schedule&add=<?=$i?>" class="edit"></a></td>
+        </tr>
+        <? endfor; ?>
     </table>
 
-<a href="index.php?module=schedule&add=<?=$i?>">Добавить</a><br><br>
-
-<? endfor; ?>
