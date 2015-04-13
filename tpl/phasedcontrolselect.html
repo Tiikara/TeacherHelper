@@ -1,5 +1,6 @@
-<form enctype="multipart/form-data" action="index.php?module=phasedcontrol&make=1" method="post">
-
+<link rel="stylesheet" href="css/phased.css">
+<form enctype="multipart/form-data" action="index.php?module=phasedcontrol&make=1" method="post" class="allstyle">
+<div  class="text">
     <label for="subjects">Предметы:</label>
     <select name="discipline_group" id="subjects">
         <? foreach ($disciplineGroups as $disciplineGroup): ?>
@@ -9,15 +10,15 @@
 
     <br>
 
-    <label for="date-from">От:</label>
+    <label for="date-from" >От:</label>
     <input type="text" name="date-from" id="date-from" value="">
 
     <br>
 
-    <label for="date-to">До:</label>
+    <label for="date-to" >До:</label>
     <input type="text" name="date-to" id="date-to" value="">
 
     <br>
-    <input type="submit" value="Сформировать">
-
+    <input type="submit" value="Сформировать" class="button">
+</div>
 </form>
