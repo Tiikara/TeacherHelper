@@ -1,11 +1,21 @@
+<link rel="stylesheet" href="css/table.css">
+
+<p style="
+             color: #000000;
+             font-size: 25px;
+             text-align: center;
+             height: 25px; !important;
+             ">
 <? foreach ($schedule as $subject): ?>
 
-    <?=$subject['num_lecture']?> пара | <?=$subject['name_discipline']?> | <?=$subject['name_group']?><br><br>
+    <?=$subject['num_lecture']?> пара - <?=$subject['name_discipline']?> - <?=$subject['name_group']?>
 
-    <table>
+</p>
+
+    <table border="1" cellpadding="0" cellspacing="0" width="50%">
         <? foreach ($subject['students'] as $student): ?>
         <tr>
-            <td><?=$student['name']?> > </td>
+            <td><?=$student['name']?></td>
             <td>
                 <? if($student['event'] != null): ?>
                     <? if($student['event']['task'] == null): ?>
@@ -24,9 +34,16 @@
             </td>
         </tr>
         <? endforeach; ?>
+
     </table>
 
     <hr>
 
-
+<p style="
+             color: #000000;
+             font-size: 25px;
+             text-align: center;
+             height: 25px; !important;
+             ">
 <? endforeach; ?>
+</p>

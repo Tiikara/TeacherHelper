@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="css/phased.css">
+
 <form enctype="multipart/form-data" action="index.php?module=journal&date=<?=$date?>&add=<?=$idStudent?>&discipline_group=<?=$idDisciplineGroup?>" method="post">
 
     <label for="rating">Оценка:</label>
@@ -16,6 +18,6 @@
         <? endforeach; ?>
     </select>
 
-    <input type="submit" value="Добавить">
+    <input type="submit" value="Добавить" class="button">
 
 </form>

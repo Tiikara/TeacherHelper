@@ -1,2 +1,29 @@
+<link rel="stylesheet" href="css/ion.calendar.css">
+
 Выберете дату:<br>
 <a href="index.php?module=journal&date=<?=$datetoday?>">Сегодня</a>
+
+<input class="myInput" id="myDatePicker-1" />
+
+<a href="index.php?module=journal&date=<?=$date?>">ГО</a>
+
+<div class="myCalendar" id="myCalendar-1" style="width: 40%"></div>
+
+<script src="js/jquery-2.1.3.min.js"></script>
+<script src="js/moment.min.js"></script>
+<script src="js/moment.ru.js"></script>
+<script src="js/ion.calendar.min.js"></script>
+<script type="text/javascript">
+    $("#myCalendar-1").ionCalendar({
+        lang: "ru",                     // язык календаря
+        sundayFirst: false,             // первый день недели
+        years: "80",                    // диапазон лет
+        format: "YYYY-MM-DD",           // формат возвращаемой даты
+        onClick: function(date){        // клик по дням вернет сюда дату
+            console.log(date);
+            document.getElementById('myDatePicker-1').value = date;
+            var val = document.getElementById('myDatePicker-1').value;
+        }
+    });
+</script>
+
