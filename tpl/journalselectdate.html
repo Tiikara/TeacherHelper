@@ -3,9 +3,9 @@
 Выберете дату:<br>
 <a href="index.php?module=journal&date=<?=$datetoday?>">Сегодня</a>
 
-<input class="myInput" id="myDatePicker-1" />
+<input class="myInput" id="myDatePicker-1" value="<?=$datetoday?>" disabled />
 
-<a href="index.php?module=journal&date=<?=$date?>">ГО</a>
+<a class="go_date" href="index.php?module=journal&date=<?=$datetoday?>">ГО</a>
 
 <div class="myCalendar" id="myCalendar-1" style="width: 40%"></div>
 
@@ -20,9 +20,8 @@
         years: "80",                    // диапазон лет
         format: "YYYY-MM-DD",           // формат возвращаемой даты
         onClick: function(date){        // клик по дням вернет сюда дату
-            console.log(date);
             document.getElementById('myDatePicker-1').value = date;
-            var val = document.getElementById('myDatePicker-1').value;
+            $(".go_date").attr("href", "index.php?module=journal&date=" + date);
         }
     });
 </script>
