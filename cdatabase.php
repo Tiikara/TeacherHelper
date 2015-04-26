@@ -597,6 +597,11 @@ class CDatabase {
         return $sql_res->getRow();
     }
 
+    public function getInsertId()
+    {
+        return $this->sqldatabase->getInsertId();
+    }
+
     const undefined_result = -1;
 
     static protected $instance;

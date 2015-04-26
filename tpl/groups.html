@@ -1,4 +1,5 @@
     <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/phased.css">
     <table id="table-edit" border="1" cellpadding="0" cellspacing="0" width="50%">
         <? foreach ($groups as $group): ?>
 
@@ -55,4 +56,12 @@
 				
 			</div>
 <br>
-		<center><button onclick="show('block')">Добавить группу</button></center>	
+		<center><button onclick="show('block')">Добавить группу</button></center>
+    <br>
+
+<center><a class="exp" href="index.php?module=groups&txt_export">Экспорт в текстовый файл</a></center>
+<br>
+    <form class="allstyle" enctype="multipart/form-data" action="index.php?module=groups&odt_import" method="post">
+      <div class="text">  Импорт групп из файла формата odt </div>
+      <input  name="odt_file" type="file" /><input class="exp" type="submit" value="Отправить" style="float: right">
+    </form>

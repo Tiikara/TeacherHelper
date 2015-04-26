@@ -12,6 +12,17 @@ class CModuleGroups {
     {
         $database = CDatabase::getInstance();
 
+        if(isset($_GET['odt_import']))
+        {
+            $this->importOdt();
+        }
+
+        if(isset($_GET['txt_export']))
+        {
+            $this->txt_export();
+        }
+
+
         if(isset($_GET['editname']))
         {
             $database->updateGroupName($_GET['editname'], $_POST['ajax_post_value']);
@@ -91,5 +102,102 @@ class CModuleGroups {
 
         CTemplateController::drawStudents($group, $students);
     }
+
+    private function importOdt()
+    {
+
+        $zip = new ZipArchive();
+        $zip->open($_FILES['odt_file']['tmp_name']);
+        $index = $zip->locateName("content.xml");
+        $xmlContent = $zip->getFromIndex($index);
+        $zip->close();
+        $xml = DOMDocument::loadXML($xmlContent, LIBXML_NOENT | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING);
+        $strContent = strip_tags($xml->saveXML());
+
+        $database = CDatabase::getInstance();
+
+        $countTags = 0;
+        $posStartWord = -1;
+        $mode = "";
+        $groupId = -1;
+        for($i=0;$i<strlen($strContent);$i++)
+        {
+            if($strContent[$i] == '#' || $i == strlen($strContent) - 1)
+            {
+                if($mode == "group")
+                {
+                    $mode = "";
+
+                    $groupName = mb_substr($strContent, $posStartWord , $i - $posStartWord);;
+
+                    $database->addGroup($groupName, CModuleAcademicYear::getId());
+                    $groupId = $database->getInsertId();
+                }
+
+                if($mode == "student")
+                {
+                    $mode = "";
+
+                    if($groupId == -1)
+                        continue;
+
+                    $studentName = mb_substr($strContent, $posStartWord , $i - $posStartWord);
+                    $database->addStudent($studentName, $groupId);
+                }
+
+                $countTags++;
+                continue;
+            }
+
+            if($countTags == 1)
+            {
+                $posStartWord = $i;
+                $mode = "student";
+            }
+
+            if($countTags == 2)
+            {
+                $posStartWord = $i;
+                $mode = "group";
+            }
+
+            $countTags = 0;
+        }
+
+    }
+
+    private function txt_export()
+    {
+        $content = "";
+
+        $database = CDatabase::getInstance();
+        $groups = $database->getGroups(CModuleAcademicYear::getId());
+
+        foreach($groups as $group)
+        {
+            $content .= "\r\n##" . $group['name'] . "\r\n";
+
+            $students = $database->getStudents($group['id']);
+
+            foreach($students as $student)
+            {
+                $content .= "#" . $student['name'] . "\r\n";
+            }
+        }
+
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=groups.txt');
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . strlen($content));
+
+        print($content);
+
+        exit();
+    }
+
 
 }

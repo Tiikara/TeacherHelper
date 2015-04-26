@@ -76,6 +76,15 @@ font-family:'Calibril'; margin-left: 15px;
     padding: 5px 20px; 
    }
 
+.exp {
+	border: 5px solid transparent;
+	background: #42a2bc;
+	color: #ffffff;
+	font-size: 14px;
+	text-transform: uppercase;
+	padding: 5px 20px;
+}
+
 #wrap{
 		display: none;
 		opacity: 0.8;
